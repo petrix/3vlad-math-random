@@ -53,9 +53,9 @@ function generateRandom() {
                 if (rnd) {
                     element.classList.add(instrumentsList[x] + '-active');
                 }
-            }else if (x == 1 && !kickArr[i] && rnd){
+            } else if (x == 1 && !kickArr[i] && rnd) {
                 element.classList.add(instrumentsList[x] + '-active');
-            }else if (x > 1 && rnd){
+            } else if (x > 1 && rnd) {
                 element.classList.add(instrumentsList[x] + '-active');
             }
             section.appendChild(element);
@@ -157,16 +157,24 @@ document.addEventListener('keyup', keybHandler, false);
 
 function keybHandler(event) {
     var keyPush = event.code.toUpperCase();
-  
+    console.log(keyPush);
     switch (keyPush) {
         case 'SPACE':
-              if (!playbackMode) {
+            if (!playbackMode) {
                 startSet();
-              } else {
+            } else {
                 pushStop();
-              }
-              break;
-    
+            }
+            break;
+        case 'ENTER':
+            generateRandom();
+            // if (!playbackMode) {
+                // startSet();
+            // } else {
+                // pushStop();
+            // }
+            break;
+
         default:
             break;
     }
