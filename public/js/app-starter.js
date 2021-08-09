@@ -1,5 +1,5 @@
-require('scssify');
+// require('scssify');
 
-require('../css/main.scss');
+import "../css/main.scss";
 
-var app = require('./application');
+import "./application";

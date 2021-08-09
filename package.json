@@ -4,9 +4,9 @@
   "description": "",
   "main": "app-starter.js",
   "scripts": {
-    "build": "browserify -t scssify public/js/app-starter.js > public/js/bundle.js",
+    "start": "snowpack dev",
+    "build": "snowpack build",
     "watch": "watchify -t scssify public/js/app-starter.js -o  public/js/bundle.js",
-    "start": "watchify -t scssify public/js/app-starter.js -o  public/js/bundle.js",
     "offline": "watchify js/offline.js -t scssify -o  offlineBundle.js"
   },
   "repository": {
@@ -16,11 +16,7 @@
   "author": "p3xx",
   "license": "ISC",
   "devDependencies": {
-    "browserify": "latest",
-    "scssify": "latest",
-    "tinyify": "latest",
-    "uglify-js": "latest",
-    "watchify": "latest"
-  },
-  "dependencies": {}
+    "@snowpack/plugin-sass": "^1.4.0",
+    "snowpack": "^3.8.3"
+  }
 }
