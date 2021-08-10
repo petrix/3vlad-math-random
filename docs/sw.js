@@ -1,5 +1,5 @@
 "use strict";
-const version = "v1.001";
+const version = "v1.0021";
 const staticCachePrefix = "DRumGen";
 const staticCacheName = staticCachePrefix + "-static-" + version;
 const dynamicCacheName = staticCachePrefix + "-dynamic-" + version;
