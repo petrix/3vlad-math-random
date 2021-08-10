@@ -128,6 +128,7 @@ bpmInput.addEventListener("change", () => {
 	if (playbackMode) {
 		startSet();
 	}
+	resize();
 });
 gridRows.addEventListener("change", () => {
 	pushStop();
@@ -135,6 +136,7 @@ gridRows.addEventListener("change", () => {
 		gridRows.value = 2;
 	}
 	generateRandom();
+	resize();
 });
 gridColumns.addEventListener("change", () => {
 	pushStop();
@@ -142,6 +144,7 @@ gridColumns.addEventListener("change", () => {
 		gridColumns.value = 5;
 	}
 	generateRandom();
+	resize();
 });
 
 function pushStop() {
@@ -180,4 +183,21 @@ function keybHandler(event) {
 		default:
 			break;
 	}
+}
+
+window.addEventListener("resize", resize);
+window.addEventListener("orientationchange", resize());
+
+function resize() {
+	var crutchStyle = document.querySelector('[data="crutch"]');
+
+	crutchStyle.innerHTML = `#drumSet > div > section > div{height: ${window.innerHeight / (gridRows.value + 1)}vh;
+                                                            width: ${80 / gridColumns.value}vw}
+    #drumSet > div{height: ${window.innerHeight / (gridRows.value + 1)}vh}
+    `;
+
+	console.log(gridRows.value);
+	// document.querySelector("#drumSet > div").style.height = 100 / window.innerHeight / (gridRows.value + 1) + "vh";
+	// document.querySelector("#drumSet >div> section> div").style.height = 100 / window.innerHeight / (gridRows.value + 1) + "vh";
+	// document.querySelector("#drumSet >div> section> div").setAttribute("style", window.innerHeight / (gridRows.value + 1) + "vh");
 }

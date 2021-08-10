@@ -52,11 +52,11 @@ article#drumSet {
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		height: 100px;
+		// height: 25vh;
 
 		& > span {
-			font-size: 30px;
-			width: 150px;
+			font-size: 5vh;
+			width: 18vw;
 		}
 
 		& > section {
@@ -64,8 +64,8 @@ article#drumSet {
 			flex-direction: row;
 
 			& > div {
-				width: 5vw;
-				height: 100px;
+				// width: 5vw;
+				// height: 25vh;
 				// border: 1px solid $kick-color;
 				border-radius: 10px;
 				position: relative;

@@ -19,7 +19,7 @@ module.exports = {
 	},
 	buildOptions: {
 		/* ... */
-		baseUrl: "./public",
+		baseUrl: "public",
 		out: "docs",
 	},
 	optimize: {
