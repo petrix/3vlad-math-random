@@ -1,0 +1,22 @@
+{
+  "name": "3vlad-math-random",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-starter.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "watch": "watchify -t scssify public/js/app-starter.js -o  public/js/bundle.js",
+    "offline": "watchify js/offline.js -t scssify -o  offlineBundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://ex-cast.tk:3000/p3xx/audio-context.git"
+  },
+  "author": "p3xx",
+  "license": "ISC",
+  "devDependencies": {
+    "@snowpack/plugin-sass": "^1.4.0",
+    "snowpack": "^3.8.3"
+  }
+}
