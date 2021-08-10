@@ -1,0 +1,23 @@
+{
+    "lang": "Russian",
+    "name": "DrumGen",
+    "short_name": "DrumGen",
+    "scope": "./",
+    "description": "The WebApi-based audio player for RADIO BRATAN",
+    "author":"p3xx",
+    "icons": [
+    {
+        "src": "android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+    }
+     ],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "orientation": "landscape",
+    "theme_color": "#000000",
+    "url": "https://petrix.github.io/3vlad-math-random",
+    "manifestUrl": "https://petrix.github.io/3vlad-math-random/manifest.json"
+  }

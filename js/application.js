@@ -19,7 +19,6 @@ window.addEventListener("DOMContentLoaded", ready);
 function ready() {
 	makeAudioCtx();
 	readLocalStorage();
-
 	generateRandom();
 	resize();
 }
