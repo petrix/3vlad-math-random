@@ -15,7 +15,31 @@ var primaryTone = null;
 var primaryGain = null;
 var secondaryTone;
 var outputGain = null;
+window.addEventListener("DOMContentLoaded", ready);
+function ready() {
+	makeAudioCtx();
+	readLocalStorage();
 
+	generateRandom();
+	resize();
+}
+function readLocalStorage() {
+	if (localStorage.getItem("bpmInput") == null || localStorage.getItem("bpmInput") == "false") {
+		localStorage.setItem("bpmInput", bpmInput.value);
+	} else {
+		bpmInput.value = localStorage.getItem("bpmInput");
+	}
+	if (localStorage.getItem("gridRows") == null || localStorage.getItem("gridRows") == "false") {
+		localStorage.setItem("gridRows", gridRows.value);
+	} else {
+		gridRows.value = localStorage.getItem("gridRows");
+	}
+	if (localStorage.getItem("gridColumns") == null || localStorage.getItem("gridColumns") == "false") {
+		localStorage.setItem("gridColumns", gridColumns.value);
+	} else {
+		gridColumns.value = localStorage.getItem("gridColumns");
+	}
+}
 function makeAudioCtx() {
 	try {
 		AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -24,12 +48,16 @@ function makeAudioCtx() {
 			outputGain = audioCtx.createGain();
 			outputGain.gain.value = 0.5;
 			outputGain.connect(audioCtx.destination);
+			primaryTone = audioCtx.createOscillator();
+			primaryGain = audioCtx.createGain();
+			primaryTone.connect(primaryGain);
+			primaryTone.type = "triangle";
+			primaryGain.connect(outputGain);
 		}
 	} catch (e) {
 		// console.warn('Web Audio API is not supported in this browser');
 	}
 }
-makeAudioCtx();
 
 function generateRandom() {
 	kickArr = [];
@@ -66,7 +94,6 @@ function generateRandom() {
         .${instrumentsList[x]}-set section div.${instrumentsList[x]}-active{background-color: hsl(${x * 30}deg 50% 40% / 80%)}`;
 	}
 }
-generateRandom();
 
 var interval;
 clearInterval(interval);
@@ -90,7 +117,6 @@ function startSet() {
 			document.querySelector("#drumSet").childNodes[iii].childNodes.item(1).childNodes[startPos].classList.add("active");
 		}
 		if (startPos % gridColumns.value <= 0) {
-			navigator.vibrate([100]);
 			primaryTone = audioCtx.createOscillator();
 			primaryGain = audioCtx.createGain();
 			primaryTone.connect(primaryGain);
@@ -98,9 +124,10 @@ function startSet() {
 			primaryTone.frequency.value = 440;
 			primaryGain.connect(outputGain);
 			primaryTone.start(0);
-			primaryGain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
-		} else {
+			primaryGain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
 			navigator.vibrate([50]);
+			// primaryTone.stop();
+		} else {
 			primaryTone = audioCtx.createOscillator();
 			primaryGain = audioCtx.createGain();
 			primaryTone.connect(primaryGain);
@@ -108,7 +135,9 @@ function startSet() {
 			primaryTone.frequency.value = 300;
 			primaryGain.connect(outputGain);
 			primaryTone.start(0);
-			primaryGain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+			primaryGain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.15);
+			navigator.vibrate([30]);
+			// primaryTone.stop();
 		}
 		startPos++;
 		startPos %= gridColumns.value;
@@ -125,24 +154,30 @@ btnPlay.onclick = function () {
 	}
 };
 bpmInput.addEventListener("change", () => {
+	bpmInput.value > 200 ? (bpmInput.value = 200) : bpmInput;
+	bpmInput.value < 20 ? (bpmInput.value = 20) : bpmInput;
+
 	if (playbackMode) {
 		startSet();
 	}
+	localStorage.setItem("bpmInput", bpmInput.value);
 	resize();
 });
 gridRows.addEventListener("change", () => {
 	pushStop();
-	if (gridRows.value < 2) {
-		gridRows.value = 2;
-	}
+	gridRows.value < 2 ? (gridRows.value = 2) : gridRows.value;
+	gridRows.value > 9 ? (gridRows.value = 9) : gridRows.value;
+	localStorage.setItem("gridRows", gridRows.value);
+
 	generateRandom();
 	resize();
 });
 gridColumns.addEventListener("change", () => {
 	pushStop();
-	if (gridColumns.value < 5) {
-		gridColumns.value = 5;
-	}
+	gridColumns.value < 5 ? (gridColumns.value = 5) : gridColumns.value;
+	gridColumns.value > 32 ? (gridColumns.value = 32) : gridColumns.value;
+	localStorage.setItem("gridColumns", gridColumns.value);
+
 	generateRandom();
 	resize();
 });
@@ -173,11 +208,6 @@ function keybHandler(event) {
 			break;
 		case "ENTER":
 			generateRandom();
-			// if (!playbackMode) {
-			// startSet();
-			// } else {
-			// pushStop();
-			// }
 			break;
 
 		default:
