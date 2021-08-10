@@ -5,9 +5,7 @@ package-lock.json
 
 .cache/
 coverage/
-dist/*
-dist
-!dist/index.html
+
 node_modules/
 *.log
 

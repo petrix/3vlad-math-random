@@ -20,7 +20,7 @@ module.exports = {
 	buildOptions: {
 		/* ... */
 		baseUrl: "/",
-		out: "docs",
+		out: "dist/",
 	},
 	optimize: {
 		minify: true,
